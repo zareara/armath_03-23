@@ -1,0 +1,56 @@
+int trigPin = 6
+int echoPin = 7
+int GreenLED = 11
+int YellowLED = 10
+int RedLED = 9
+
+void setup() {
+  Serial.begin (9600);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(GreenLED, OUTPUT);
+  pinMode(YellowLED, OUTPUT);
+  pinMode(RedLED, OUTPUT);
+ 
+}
+void loop() {
+  long duration, distance;
+  digitalWrite(trigPin, LOW); 
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration/5) / 29.1;
+ 
+  if (distance < 50) {
+      digitalWrite(GreenLED, HIGH);
+}
+  else {
+      digitalWrite(GreenLED, LOW);
+  }
+  
+  if (distance < 20) {
+    digitalWrite(YellowLED, HIGH);
+}
+  else {
+    digitalWrite(YellowLED,LOW);
+  }
+  if (distance < 5) {
+    digitalWrite(RedLED, HIGH);
+    sound = 1000;
+}
+  else {
+    digitalWrite(RedLED,LOW);
+  }
+ 
+  if (distance > 5 || distance <= 0){
+    Serial.println("Out of range");
+  }
+  else {
+    Serial.print(distance);
+    Serial.println(" cm");
+   
+  }
+  delay(300);
+}
